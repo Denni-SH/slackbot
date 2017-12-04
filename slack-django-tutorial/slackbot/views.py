@@ -3,12 +3,12 @@ import requests
 import json
 from django.http import HttpResponse, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView, TemplateView
+from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.conf import settings
 from slackclient import SlackClient
 from .models import Team, Message, Comment, CustUser
-from .forms import UserCreation
+from .forms import UserCreation, PostForm
 from django.contrib.auth.models import User
 
 def index(request):
@@ -17,9 +17,6 @@ def index(request):
 
 def slack_oauth(request):
     code = request.GET['code']
-    # user = request.GET.get('event')
-
-    # print(user)
     params = {
         'code': code,
         'client_id': "280003673011.280124081140",
@@ -28,18 +25,13 @@ def slack_oauth(request):
     url = 'https://slack.com/api/oauth.access'
     json_response = requests.get(url, params)
     data = json.loads(json_response.text)
-    workspace = Team.objects.get_or_create(
+    workspace= Team.objects.get_or_create(
         name = data['team_name'],
         team_id = data['team_id'],
         bot_user_id = data['bot']['bot_user_id'],
         bot_access_token = data['bot']['bot_access_token'],
         channel_id = data['incoming_webhook']['channel_id']
     )
-    # CustUser.objects.update_or_create(
-    #             user=user,
-    #             workspace=workspace.team_id,
-    #             is_admin=True,
-    #         )
     return redirect('/')
 
 def message_save(request_resp, message_resp):
@@ -105,15 +97,16 @@ def statistic(request,slug):
     threads = Comment.objects.all()
     return render(request, 'slackbot/statistic.html', {'messages':messages, 'comments':threads})
 
-def settings(request,slug):
-    messages = Message.objects.filter(workspace=slug)
-    threads = Comment.objects.all()
-    return render(request, 'slackbot/manage.html', {'messages':messages, 'comments':threads})
 
-# def add(request):
-#     # messages = Message.objects.filter(workspace=slug)
-#     # threads = Comment.objects.all()
-#     return render(request, 'slackbot/add_app.html')
+class Settings(UpdateView):
+    template_name = 'slackbot/manage.html'
+    form_class = PostForm
+    context_object_name = 'slug'
+    model = Team
+    slug_field = 'team_id'
+    slug_url_kwarg = 'slug'
+    success_url = '/'
+
 
 class SignUp(CreateView):
     template_name = "registration/register.html"

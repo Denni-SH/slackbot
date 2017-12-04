@@ -3,39 +3,24 @@
 
 
 {% block content %}
-    <p><a href="/">Back</a></p>
-	<h2><u>Сообщения:</u></h2>
-	<div class="container">
-	<table class="table table-bordered">
-		    <thead>
-      <tr>
-        <th>Тип сообщения</th>
-        <th>Пользователь</th>
-        <th>Сообщение</th>
-        <th>Дата сообщения</th>
-      </tr>
-    </thead>
-	<tbody>
-		{% for item in messages%}
-		<tr>
-            <td>Заявка</td>
-			<td> {{item.user_name }} </td>
-			<td> {{item.text }} </td>
-			<td> {{item.date }} </td>
-		</tr>
-        {% for thread in comments%}
-                    {% if thread.message == item %}
-                <tr>
-                    <td>Ответ</td>
-                    <td> {{thread.user_id }} </td>
-                    <td> {{thread.text }} </td>
-                    <td> {{thread.date }} </td>
-                </tr>
-                    {% endif %}
-        {% endfor %}
-	    {% endfor %}
-    </tbody>
-	</table>
-	</div>
-	<p><a href="/">Back</a></p>
+	<h2>Настройки слака:</h2>
+<br>
+    <form method="POST">{% csrf_token %}
+          <div class="form-group">
+    <label for="text2">Выбранный слак:</label>
+    <input type="text" class="form-control" id="text2" disabled value="{{slug}}">
+  </div>
+  <div class="form-group">
+    <label for="text1">Текущий канал для отправки сообщений:</label>
+    <input type="text" class="form-control" id="text1" disabled value="{{slug.channel_id}}">
+  </div>
+    <div class="form-group">
+    <label for="text3">Введите id нового канала для отправки сообщений:</label>
+    <div class="form-control">{{form }}</div>
+
+  </div>
+  <button type="submit" class="btn btn-default">Изменить</button>
+</form>
+<br>
+	<p><a href="/">Назад</a></p>
 {% endblock %}
