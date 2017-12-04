@@ -11,7 +11,6 @@
       <tr>
         <th>Название</th>
         <th>Канал для сообщений</th>
-        <th>Invite</th>
         <th>Управление</th>
         <th>Архив</th>
       </tr>
@@ -21,7 +20,6 @@
       <tr>
         <td>{{item.name}}</td>
         <td>{{item.channel_id}}</td>
-        <td>{{item.bot_access_token}}</td>
         <td>
 			<a href="{% url 'Settings' slug=item.team_id %}">
 				<span class="glyphicon glyphicon-edit"></span>
