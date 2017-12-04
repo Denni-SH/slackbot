@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^event/$', views.thread_event),
     url(r'^statistic/(?P<slug>[-_\w\d]+)$', views.statistic, name='Statistic'),
     url(r'^settings/(?P<slug>[-_\w\d]+)$', views.settings, name='Settings'),
-    url(r'^add/$', views.add, name='Add'),
+    # url(r'^add/$', views.add, name='Add'),
 ]

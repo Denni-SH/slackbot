@@ -119,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-LOGIN_REDIRECT_URL = '/workspaces'
+LOGIN_REDIRECT_URL = '/'
 SLACK_CLIENT_ID = "280003673011.280124081140"
 SLACK_CLIENT_SECRET = "b6ea12f5f0adfb110b2dca132ed11c28"
 SLACK_BOT_TOKEN = 'xoxb-281827805799-VH8xERPcGqy6XML4nud9dWDm'

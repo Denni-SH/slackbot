@@ -110,16 +110,16 @@ def settings(request,slug):
     threads = Comment.objects.all()
     return render(request, 'slackbot/manage.html', {'messages':messages, 'comments':threads})
 
-def add(request):
-    # messages = Message.objects.filter(workspace=slug)
-    # threads = Comment.objects.all()
-    return render(request, 'slackbot/add_app.html')
+# def add(request):
+#     # messages = Message.objects.filter(workspace=slug)
+#     # threads = Comment.objects.all()
+#     return render(request, 'slackbot/add_app.html')
 
 class SignUp(CreateView):
     template_name = "registration/register.html"
     model = User
     form_class = UserCreation
-    success_url = "/workspaces"
+    success_url = "/"
 
 
 class SignIn(LoginView):
