@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+        <a href='https://slack.com/oauth/authorize?scope=bot&client_id={{ client_id }}'>
+            Add To Slack
+        </a>
+{% endblock %}

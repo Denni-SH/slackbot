@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<form>
+  <div class="form-group">
+    <label for="url">Ссылка на slack:</label>
+    <input type="url" class="form-control" id="url">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Канал для отправки сообщений:</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+  <button type="submit" class="btn btn-default">Добавить</button>
+</form>
+{% endblock %}
